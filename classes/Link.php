@@ -413,6 +413,49 @@ class LinkCore
     }
 
     /**
+     * Get an image link to anything but products.
+     *
+     * @param $class      Class of the image. 'categories', 'manufacturers', ...
+     *                    For class 'products', use getImageLink().
+     * @param $id         ID of the image.
+     * @param $type       Image type, like 'home', 'home_small', 'medium', ...
+     * @param $resolution Image resolution. '', '2x', '3x', ...
+     * @param $name       An image name for pretty/SEO-friendly URLs. Currently,
+     *                    only (products and) categories support such names.
+     * @param $format     Image format, 'jpg' or 'webp'.
+     *
+     * @return Full URL to the image.
+     *
+     * @version 1.1.0 Iniitial version.
+     */
+    public static function getGenericImageLink($class, $id, $type,
+                                               $resolution = '',
+                                               $name = '', $format = 'default')
+    {
+        $type = ImageType::getFormatedName($type);
+        if ($format == 'default') {
+            // Maybe we get the right prefix for PNGs one day.
+            $format = 'jpg';
+        }
+
+        if (Configuration::get('PS_REWRITING_SETTINGS')
+            && $class == 'categories'
+            && $name
+        ) {
+            $uriPath = __PS_BASE_URI__._TB_IMAGE_MAP_[$class]
+                       .$id.'-'.$type.'/'
+                       .$name.$resolution.'.'.$format;
+        } else {
+            $uriPath = _PS_IMG_._TB_IMAGE_MAP_[$class]
+                       .$id.'-'.$type.$resolution.'.'.$format;
+        }
+
+        return Tools::getShopProtocol()
+               .Tools::getMediaServer($uriPath)
+               .$uriPath;
+    }
+
+    /**
      * Create link after language change, for the change language block
      *
      * @param int     $idLang Language ID
