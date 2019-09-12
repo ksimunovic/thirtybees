@@ -93,7 +93,7 @@ class AdminTranslationsControllerCore extends AdminController
         if (defined('_PS_HOST_MODE_') && strpos($email, _PS_MAIL_DIR_) !== false) {
             $emailFile = $email;
         } elseif (__PS_BASE_URI__ != '/') {
-            $emailFile = str_replace(__PS_BASE_URI__, '', _PS_ROOT_DIR_.'/').$email;
+            $emailFile = str_replace(__PS_BASE_URI__, _PS_ROOT_DIR_ . '/', $email);
         } else {
             $emailFile = _PS_ROOT_DIR_.$email;
         }
