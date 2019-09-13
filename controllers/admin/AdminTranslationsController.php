@@ -3069,7 +3069,11 @@ class AdminTranslationsControllerCore extends AdminController
         } else {
             $strReturn .= '<p class="error">
                 '.$this->l('There was a problem getting the mail files.').'<br>
-                '.sprintf($this->l('English language files must exist in %s folder'), '<em>'.preg_replace('@/[a-z]{2}(/?)$@', '/en$1', $mails['directory']).'</em>').'
+                '.sprintf(
+                    Tools::displayError('Missing language files for the "%1$s" language in %2$s folder'),
+                    $objLang->iso_code,
+                    $mails['directory']
+                ).'
             </p>';
         }
 
