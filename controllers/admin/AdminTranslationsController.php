@@ -1031,8 +1031,13 @@ class AdminTranslationsControllerCore extends AdminController
         }
 
         if (!$defaultLanguage || !Validate::isLanguageIsoCode($defaultLanguage)) {
-            return false;
-        }
+			if(file_exists(_PS_MAIL_DIR_.'en/')){
+				// English is not chosen as one of the languages, but default files are still there
+				$defaultLanguage = 'en';
+			} else {
+				return false;
+			}
+		}
 
         // 1 - Scan mails files
         $mails = [];
