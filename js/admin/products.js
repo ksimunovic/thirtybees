@@ -146,7 +146,7 @@ function ProductTabsManager() {
         data = window.post_data;
         // set key_tab so that the ajax call returns the display for the current tab
         data.key_tab = tabName;
-      }it
+      }
       return $.ajax({
         url: $('#link-' + tabName).attr('href') + '&ajax=1' + ($('#page').length ? '&page=' + parseInt($('#page').val(), 10) : '') + '&rand=' + +new Date().getTime(),
         async: true,
