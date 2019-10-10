@@ -133,6 +133,8 @@ class AdminGeolocationControllerCore extends AdminController
                     'PS_GEOLOCATION_WHITELIST',
                     str_replace("\n", ';', str_replace("\r", '', Tools::getValue('PS_GEOLOCATION_WHITELIST')))
                 );
+                // Updating up $_POST values so they are correctly stored in database
+                $_POST['PS_GEOLOCATION_WHITELIST'] = Configuration::get('PS_GEOLOCATION_WHITELIST');
             }
         }
 
